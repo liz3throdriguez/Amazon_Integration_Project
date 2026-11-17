@@ -76,9 +76,102 @@ export default function App() {
     <main className="main-content"><header className="topbar"><span>FLEUR ACCESSORIES · AMAZON INTEGRATION</span><span className="topbar-chip">✿ Mock marketplace · No live API</span></header>
       <div className="heading"><p className="eyebrow">THE FLEUR EDIT</p><h1>{({Overview:'Your integration studio.',Products:'Your product catalog.','Amazon Sync':'Sync with Amazon.',Orders:'Order management.','Activity Log':'Integration activity.'})[tab]}</h1><p className="subtitle">A fictional multichannel commerce workflow, built for our IE4427 term project.</p></div>
       {notice&&<p className="notice" role="status">{notice}</p>}
-      {tab==='Overview'&&<><div className="stat-grid"><div className="glass stat"><Package size={20}/><strong>{products.length}</strong><span>Store products</span></div><div className="glass stat"><RefreshCw size={20}/><strong>{amazon.length}</strong><span>Mock Amazon listings</span></div><div className="glass stat"><ShoppingBag size={20}/><strong>{orders.length}</strong><span>Test orders</span></div></div><section className="glass panel"><div className="section-title"><span><LayoutDashboard size={19}/> Integration overview</span><span className="tiny-label">{stock} TOTAL STORE UNITS</span></div><p className="subtitle">Create and validate product data, synchronize inventory to a simulated Amazon catalog, then place fictional orders and track fulfillment.</p><div style={{marginTop:24}}><button className="primary-button" onClick={()=>setTab('Amazon Sync')}>Go to Amazon Sync <ArrowRight size={16}/></button></div></section></>}
+      {tab==='Overview'&&<>
+<section className="glass panel">
+  <div className="section-title">
+    <span><RefreshCw size={19}/> Amazon API Integration Architecture</span>
+    <span className="tiny-label">CLASSROOM SIMULATION</span>
+  </div>
+
+  <p className="subtitle">
+    FleurSync demonstrates how a custom online store can
+    exchange product, inventory, order, and fulfillment
+    information with Amazon Marketplace through APIs.
+  </p>
+
+  <div style={{
+    display:'grid',
+    gridTemplateColumns:'repeat(auto-fit,minmax(190px,1fr))',
+    gap:16,
+    marginTop:24
+  }}>
+    {[
+      ['01','Fleur Accessories','Online store and source product catalog'],
+      ['02','FleurSync REST API','FastAPI endpoints exchange JSON data'],
+      ['03','Mock Amazon Marketplace','Simulated listings, inventory and orders']
+    ].map(([number,title,description])=>(
+      <div key={number} style={{
+        padding:20,
+        borderRadius:16,
+        background:'rgba(255,255,255,0.55)',
+        border:'1px solid rgba(180,140,170,0.25)'
+      }}>
+        <span className="tiny-label">{number}</span>
+        <h3 style={{margin:'12px 0 8px'}}>{title}</h3>
+        <p className="subtitle">{description}</p>
+      </div>
+    ))}
+  </div>
+
+  <p className="footnote" style={{marginTop:20}}>
+    Integration operations: POST /api/sync,
+    POST /api/inventory, POST /api/orders,
+    and POST /api/orders/:id/ship.
+    Amazon Selling Partner API access is not used.
+  </p>
+</section>
+<div className="stat-grid"><div className="glass stat"><Package size={20}/><strong>{products.length}</strong><span>Store products</span></div><div className="glass stat"><RefreshCw size={20}/><strong>{amazon.length}</strong><span>Mock Amazon listings</span></div><div className="glass stat"><ShoppingBag size={20}/><strong>{orders.length}</strong><span>Test orders</span></div></div><section className="glass panel"><div className="section-title"><span><LayoutDashboard size={19}/> Integration overview</span><span className="tiny-label">{stock} TOTAL STORE UNITS</span></div><p className="subtitle">Create and validate product data, synchronize inventory to a simulated Amazon catalog, then place fictional orders and track fulfillment.</p><div style={{marginTop:24}}><button className="primary-button" onClick={()=>setTab('Amazon Sync')}>Go to Amazon Sync <ArrowRight size={16}/></button></div></section></>}
       {tab==='Products'&&<section className="glass panel"><div className="section-title"><span><Package size={19}/> Store products</span><span className="tiny-label">FICTIONAL TEST DATA</span></div><div className="table-scroll"><table><thead><tr><th>SKU</th><th>PRODUCT</th><th>PRICE</th><th>STORE STOCK</th><th>UPDATE STOCK</th></tr></thead><tbody>{products.map(p=><tr key={p.sku}><td>{p.sku}</td><td><strong>{p.title}</strong></td><td>{money(p.price)}</td><td>{p.quantity}</td><td><input aria-label={`Inventory for ${p.sku}`} type="number" min="0" defaultValue={p.quantity} key={`${p.sku}-${p.quantity}`} style={{width:75,padding:8,borderRadius:8,border:'1px solid #e4bfd3'}} onKeyDown={e=>{if(e.key==='Enter')changeStock(p.sku,Number(e.currentTarget.value))}}/><button className="text-button" style={{display:'inline-flex',marginLeft:8}} disabled={loading} onClick={e=>changeStock(p.sku,Number(e.currentTarget.previousSibling.value))}>Update</button></td></tr>)}</tbody></table></div></section>}
-      {tab==='Amazon Sync'&&<><section className="glass panel search-panel"><div className="section-title"><span><RefreshCw size={19}/> Product synchronization</span><span className="tiny-label">MOCK API SIMULATION</span></div><p className="subtitle">Validate SKUs, prices, and quantities, then copy the store catalog into the simulated Amazon marketplace.</p><div style={{marginTop:24}}><button className="primary-button" onClick={sync} disabled={loading}><RefreshCw size={17}/> Sync all products <ArrowRight size={16}/></button></div></section><section className="glass panel"><div className="section-title"><span><Package size={19}/> Mock Amazon listings</span><span className="tiny-label">{amazon.length} LISTINGS</span></div><div className="table-scroll"><table><thead><tr><th>SKU</th><th>PRODUCT</th><th>PRICE</th><th>AMAZON STOCK</th></tr></thead><tbody>{amazon.map(p=><tr key={p.sku}><td>{p.sku}</td><td><strong>{p.title}</strong></td><td>{money(p.price)}</td><td>{p.quantity}</td></tr>)}</tbody></table>{!amazon.length&&<p className="footnote">No mock listings yet. Click “Sync all products” above.</p>}</div></section></>}
+      {tab==='Amazon Sync'&&<>
+<section className="glass panel">
+  <div className="section-title">
+    <span><RefreshCw size={19}/> Inventory Reconciliation</span>
+    <span className="tiny-label">STORE VS MOCK AMAZON</span>
+  </div>
+
+  <p className="subtitle">
+    Compare inventory quantities across both sales channels
+    to identify synchronization differences and reduce overselling.
+  </p>
+
+  <div className="table-scroll" style={{marginTop:20}}>
+    <table>
+      <thead>
+        <tr>
+          <th>SKU</th>
+          <th>STORE STOCK</th>
+          <th>AMAZON STOCK</th>
+          <th>SYNC STATUS</th>
+        </tr>
+      </thead>
+      <tbody>
+        {products.map(product => {
+          const listing = amazon.find(a => a.sku === product.sku);
+          const matches = listing &&
+            Number(listing.quantity) === Number(product.quantity);
+
+          return (
+            <tr key={product.sku}>
+              <td>{product.sku}</td>
+              <td>{product.quantity}</td>
+              <td>{listing ? listing.quantity : 'Not listed'}</td>
+              <td>
+                <span style={{
+                  fontWeight:600,
+                  color:matches ? '#25845f' : '#bd5b55'
+                }}>
+                  {matches ? 'In Sync' :
+                    listing ? 'Mismatch' : 'Not Synced'}
+                </span>
+              </td>
+            </tr>
+          );
+        })}
+      </tbody>
+    </table>
+  </div>
+</section>
+<section className="glass panel search-panel"><div className="section-title"><span><RefreshCw size={19}/> Product synchronization</span><span className="tiny-label">MOCK API SIMULATION</span></div><p className="subtitle">Validate SKUs, prices, and quantities, then copy the store catalog into the simulated Amazon marketplace.</p><div style={{marginTop:24}}><button className="primary-button" onClick={sync} disabled={loading}><RefreshCw size={17}/> Sync all products <ArrowRight size={16}/></button></div></section><section className="glass panel"><div className="section-title"><span><Package size={19}/> Mock Amazon listings</span><span className="tiny-label">{amazon.length} LISTINGS</span></div><div className="table-scroll"><table><thead><tr><th>SKU</th><th>PRODUCT</th><th>PRICE</th><th>AMAZON STOCK</th></tr></thead><tbody>{amazon.map(p=><tr key={p.sku}><td>{p.sku}</td><td><strong>{p.title}</strong></td><td>{money(p.price)}</td><td>{p.quantity}</td></tr>)}</tbody></table>{!amazon.length&&<p className="footnote">No mock listings yet. Click “Sync all products” above.</p>}</div></section></>}
       {tab==='Orders'&&<><section className="glass panel search-panel"><div className="section-title"><span><ShoppingBag size={19}/> Create a test Amazon order</span><span className="tiny-label">NO REAL CUSTOMERS</span></div><form onSubmit={placeOrder}><div className="field-row" style={{gridTemplateColumns:'1fr 1fr'}}><div><label htmlFor="order-sku">Product</label><select id="order-sku" value={sku} onChange={e=>setSku(e.target.value)}>{products.map(p=><option key={p.sku} value={p.sku}>{p.title} ({p.sku})</option>)}</select></div><div><label htmlFor="order-qty">Quantity</label><input id="order-qty" type="number" min="1" step="1" value={qty} onChange={e=>setQty(e.target.value)}/></div></div><button className="primary-button" type="submit" disabled={loading}>Place fictional order <ArrowRight size={16}/></button></form></section>
 <section className="glass panel">
   <div className="section-title">
