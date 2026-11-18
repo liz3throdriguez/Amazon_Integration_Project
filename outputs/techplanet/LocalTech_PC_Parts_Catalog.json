@@ -1,0 +1,62 @@
+[
+  {
+    "sku": "PC001",
+    "title": "Raspberry Pi 5 8GB",
+    "price": 95.0,
+    "quantity": 20,
+    "description": "Raspberry Pi 5 single-board computer with 8GB RAM. Classroom sample configuration; power supply and microSD card are separate.",
+    "category": "Single-board computers",
+    "currency": "USD",
+    "image_url": "https://example.com/test-products/PC001.jpg"
+  },
+  {
+    "sku": "PC002",
+    "title": "128GB microSDXC Card",
+    "price": 18.0,
+    "quantity": 40,
+    "description": "Generic 128GB microSDXC storage card. Classroom sample; brand, endurance and speed class require selection before a real listing.",
+    "category": "Memory cards",
+    "currency": "USD",
+    "image_url": "https://example.com/test-products/PC002.jpg"
+  },
+  {
+    "sku": "PC003",
+    "title": "32GB DDR5 RAM Kit 2x16GB",
+    "price": 110.0,
+    "quantity": 25,
+    "description": "Generic desktop DDR5 memory kit with two 16GB modules. Classroom sample; motherboard compatibility, speed and timings require verification.",
+    "category": "Desktop memory",
+    "currency": "USD",
+    "image_url": "https://example.com/test-products/PC003.jpg"
+  },
+  {
+    "sku": "PC004",
+    "title": "NVIDIA GeForce RTX 5060 8GB",
+    "price": 299.0,
+    "quantity": 10,
+    "description": "GeForce RTX 5060 graphics card family with 8GB GDDR7. Classroom sample; board manufacturer, dimensions and power requirements require selection.",
+    "category": "Graphics cards",
+    "currency": "USD",
+    "image_url": "https://example.com/test-products/PC004.jpg"
+  },
+  {
+    "sku": "PC005",
+    "title": "AMD Ryzen 5 9600X CPU",
+    "price": 249.0,
+    "quantity": 20,
+    "description": "AMD Ryzen 5 9600X desktop processor. Classroom sample; verify motherboard socket, BIOS support and cooling before a real sale.",
+    "category": "Processors",
+    "currency": "USD",
+    "image_url": "https://example.com/test-products/PC005.jpg"
+  },
+  {
+    "sku": "PC006",
+    "title": "Case for iPad 11-inch A16",
+    "price": 25.0,
+    "quantity": 35,
+    "description": "Generic protective case targeting iPad 11-inch A16. Classroom sample; exact case fit and supplier must be verified. Tablet is not included.",
+    "category": "Tablet cases",
+    "currency": "USD",
+    "image_url": "https://example.com/test-products/PC006.jpg"
+  }
+]

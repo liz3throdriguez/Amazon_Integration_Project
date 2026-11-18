@@ -1,0 +1,146 @@
+[
+  [
+    "SKU",
+    "products.sku",
+    "Seller SKU / Listings Items sku",
+    "PC001",
+    "Unique uppercase letters, digits, underscore or hyphen; 1 to 40 characters",
+    "Implemented in mock; production seller and marketplace context also required"
+  ],
+  [
+    "Title",
+    "products.title",
+    "attributes.item_name[].value",
+    "Raspberry Pi 5 8GB",
+    "Trimmed nonempty text; local maximum 200 characters",
+    "Illustrative attribute path; validate live product schema"
+  ],
+  [
+    "Description",
+    "products.description",
+    "attributes.product_description[].value",
+    "Raspberry Pi 5 single-board computer with 8GB RAM",
+    "Trimmed nonempty text; local maximum 2000 characters",
+    "Illustrative path; real content rules vary by product"
+  ],
+  [
+    "Category",
+    "products.category",
+    "productType and category-specific attributes",
+    "Single-board computers",
+    "Required classroom label; not an Amazon productType identifier",
+    "Production lookup required through Product Type Definitions"
+  ],
+  [
+    "Image URL",
+    "products.image_url",
+    "attributes.main_product_image_locator[].media_location",
+    "https://example.com/test-products/PC001.jpg",
+    "HTTP(S) URL syntax only; no image download or quality checks",
+    "Placeholder URLs cannot support live listings"
+  ],
+  [
+    "Price",
+    "products.price",
+    "attributes.purchasable_offer[].our_price[].schedule[].value_with_tax",
+    95,
+    "Positive finite amount with cents precision",
+    "Illustrative USD offer structure; tax treatment not implemented"
+  ],
+  [
+    "Currency",
+    "products.currency",
+    "attributes.purchasable_offer[].currency",
+    "USD",
+    "Only USD accepted in classroom demo",
+    "Production marketplace currency must be verified"
+  ],
+  [
+    "Available quantity",
+    "products.quantity",
+    "attributes.fulfillment_availability[].quantity",
+    20,
+    "Nonnegative integer; on successful order subtract ordered units once",
+    "Single shared available-stock pool; no separate reserved or damaged stock ledger"
+  ],
+  [
+    "Fulfillment channel",
+    "Seller fulfilled mock",
+    "fulfillment_channel_code",
+    "DEFAULT",
+    "Seller fulfillment demonstrated; FBA is conceptual",
+    "No FBA warehouse stock or MCF API implementation"
+  ],
+  [
+    "Marketplace order ID",
+    "orders.marketplace_order_id",
+    "Orders API order identifier",
+    "TEST-CASE-001",
+    "Preserve unique incoming reference; exact replay returns original order",
+    "TEST references are fictional, not real Amazon order IDs"
+  ],
+  [
+    "Local order ID",
+    "orders.id",
+    "Internal database reference",
+    1,
+    "Separate local ID from marketplace reference",
+    "UI formats local ID as TEST-0001"
+  ],
+  [
+    "Order SKU and units",
+    "orders.sku and orders.quantity",
+    "Order item seller SKU and ordered quantity",
+    "PC001 x 2",
+    "SKU must be listed; positive integer; reject insufficient stock",
+    "Multi-item orders are outside the demo"
+  ],
+  [
+    "Order status",
+    "orders.status",
+    "Conceptual Amazon order status mapping",
+    "Pending / Processing / Shipped",
+    "Only allowed transitions; local Pending means received",
+    "Local Pending is not Amazon Pending payment verification; local Processing is conceptual Unshipped"
+  ],
+  [
+    "Cancellation",
+    "orders.status = Cancelled",
+    "Conceptual Canceled status",
+    "Cancelled",
+    "Only before shipment; restore units once",
+    "Returns and refunds after shipment are outside scope"
+  ],
+  [
+    "Shipment tracking",
+    "orders.tracking_number and carrier",
+    "Shipment confirmation tracking and carrier fields",
+    "TEST-TRACK-001 / TEST-CARRIER",
+    "Nonempty allowed tracking characters; no carrier lookup",
+    "Fictional references; production requires real valid carrier and tracking data"
+  ],
+  [
+    "Delivered",
+    "orders.status = Delivered",
+    "Carrier event / delivery reporting",
+    "Delivered",
+    "Only from Shipped after manual classroom action",
+    "Not claimed as a direct equivalent to every Orders API status"
+  ],
+  [
+    "Test order value",
+    "orders.total",
+    "Illustrative order amount",
+    190,
+    "Listing unit price times quantity; round to cents",
+    "Not settlement, collected revenue or profit; taxes, fees and payments excluded"
+  ],
+  [
+    "Product specifications and compatibility",
+    "products.title and products.description",
+    "Product type specific attributes from current Amazon schema",
+    "DDR5 kit 2x16GB; GPU 8GB GDDR7; iPad A16 case",
+    "Preserve capacity, model and compatibility; verify supplier and part number before listing",
+    "Description implemented; full category attribute schema and compatibility checks are outside the mock"
+  ]
+]
